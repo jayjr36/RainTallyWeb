@@ -60,10 +60,10 @@
                 <span>Rain Days:</span>
                 <strong>{{ $summary['rain_days'] }}</strong>
             </li>
-            <li class="list-group-item d-flex justify-content-between">
+            {{-- <li class="list-group-item d-flex justify-content-between">
                 <span>Average Rain:</span>
                 <strong>{{ number_format($summary['average_rain'], 2) }} mm</strong>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>
@@ -91,7 +91,6 @@
                 legend: { display: false },
                 title: {
                     display: true,
-                    text: 'Average Rainfall by ' + '{{ ucfirst($filter) }}'
                 }
             },
             scales: {

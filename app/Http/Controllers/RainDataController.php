@@ -65,7 +65,7 @@ class RainDataController extends Controller
 
             // Format the data for the chart
             $data = $days->mapWithKeys(fn($day) => [
-                $day => $grouped->has($day) ? $grouped[$day]->avg('amount') : 0
+                $day => $grouped->has($day) ? $grouped[$day]->sum('amount') : 0
             ]);
         } elseif ($filter === 'monthly') {
             $start = (clone $now)->startOfMonth()->startOfDay();
@@ -81,7 +81,7 @@ class RainDataController extends Controller
             // Format the data for the chart
             $data = collect($daysInMonth)->mapWithKeys(function ($day) use ($grouped) {
                 $key = str_pad($day, 2, '0', STR_PAD_LEFT); // Ensure '01', '02', etc.
-                return [$key => $grouped->has($key) ? $grouped[$key]->avg('amount') : 0];
+                return [$key => $grouped->has($key) ? $grouped[$key]->sum('amount') : 0];
             });
         } elseif ($filter === 'yearly') {
             $start = (clone $now)->startOfYear()->startOfDay();
@@ -96,7 +96,7 @@ class RainDataController extends Controller
 
             // Format the data for the chart
             $data = $months->mapWithKeys(fn($month) => [
-                $month => $grouped->has($month) ? $grouped[$month]->avg('amount') : 0
+                $month => $grouped->has($month) ? $grouped[$month]->sum('amount') : 0
             ]);
         }
 
@@ -104,7 +104,7 @@ class RainDataController extends Controller
         $summary = [
             'total_rain' => $data->sum(),
             'rain_days' => $data->filter(fn($v) => $v > 0)->count(),
-            'average_rain' => $data->avg(),
+            'average_rain' => $data->sum(),
         ];
 
         // Pass data to the view
