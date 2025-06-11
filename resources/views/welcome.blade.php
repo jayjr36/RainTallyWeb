@@ -66,7 +66,7 @@
             <p>Track rainfall patterns from multiple devices in real time. Analyze historical data and gain insights with interactive charts.</p>
             
             <div class="hero-buttons">
-                <a href="/all-data" class="btn btn-primary btn-lg">📊 View All Data</a>
+                <a href="/all-data" class="btn btn-primary btn-lg">📊 View Data</a>
                 <a href="/filtered-data" class="btn btn-success btn-lg">🔍 Filtered Analytics</a>
             </div>
         </div>
