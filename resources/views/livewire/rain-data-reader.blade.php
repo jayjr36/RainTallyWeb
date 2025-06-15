@@ -1,3 +1,4 @@
+<div wire:poll.2000ms> 
 <div>
     <!-- Main container for the component, provides overall padding and centering -->
     <div class="container my-5">
@@ -99,4 +100,5 @@
             border-radius: 1.25rem !important; /* More rounded corners for cards */
         }
     </style>
+</div>
 </div>
