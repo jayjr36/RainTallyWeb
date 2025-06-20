@@ -56,21 +56,22 @@
                         <table class="table table-striped table-hover table-bordered align-middle text-center rounded-3 overflow-hidden">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col" class="py-3">Amount (mm)</th>
-                                    <th scope="col" class="py-3">Day</th>
-                                    <th scope="col" class="py-3">Date</th>
-                                    {{-- <th scope="col" class="py-3">Time</th> --}}
-                                    <th scope="col" class="py-3">Device ID</th>
+                                    <th scope="col" class="py-3 small">Device ID</th>
+                                    <th scope="col" class="py-3 small">Day</th>
+                                    <th scope="col" class="py-3 small">Date</th>
+                                    <th scope="col" class="py-3 small">Time</th>
+                                    <th scope="col" class="py-3 small">Amount (mm)</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($rainData as $data)
                                     <tr>
-                                        <td><span class="badge bg-primary fs-6">{{ $data->amount }}</span></td>
-                                        <td>{{ \Carbon\Carbon::parse($data->created_at)->format('l') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
-                                        {{-- <td>{{ \Carbon\Carbon::parse($data->created_at)->format('h:i A') }}</td> --}}
-                                        <td><span class="text-muted">{{ $data->device_id ?? 'N/A' }}</span></td>
+                                        <td><span class="text-muted  small">{{ $data->device_id ?? 'N/A' }}</span></td>
+                                        <td class=" small">{{ \Carbon\Carbon::parse($data->created_at)->format('l') }}</td>
+                                        <td class=" small">{{ \Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
+                                        <td class=" small">{{ \Carbon\Carbon::parse($data->created_at)->format('h:i A') }}</td>
+                                        <td class=" small"><span class="badge bg-primary-subtle text-primary fs-6">{{ $data->amount }}</span></td> 
                                     </tr>
                                 @endforeach
                             </tbody>
