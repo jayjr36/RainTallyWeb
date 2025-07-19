@@ -58,10 +58,10 @@ class RainDataController extends Controller
             $days = collect(Carbon::getDays())->map(fn($day) => ucfirst($day));
             Log::info('Days of the week: ' . $days);
             // Fetch records within this week
-            $records = RainData::whereBetween('created_at', [$start, $end])->get();
+            $records = RainData::whereBetween('recorded_at', [$start, $end])->get();
             Log::info('Fetched records: ' . $records);
             // Group records by day of the week
-            $grouped = $records->groupBy(fn($r) => Carbon::parse($r->created_at)->format('l'));
+            $grouped = $records->groupBy(fn($r) => Carbon::parse($r->recorded_at)->format('l'));
 
             // Format the data for the chart
             $data = $days->mapWithKeys(fn($day) => [
@@ -73,10 +73,10 @@ class RainDataController extends Controller
             $daysInMonth = range(1, $now->daysInMonth);
 
             // Fetch records within the month
-            $records = RainData::whereBetween('created_at', [$start, $end])->get();
+            $records = RainData::whereBetween('recorded_at', [$start, $end])->get();
 
             // Group records by day of the month
-            $grouped = $records->groupBy(fn($r) => Carbon::parse($r->created_at)->format('d'));
+            $grouped = $records->groupBy(fn($r) => Carbon::parse($r->recorded_at)->format('d'));
 
             // Format the data for the chart
             $data = collect($daysInMonth)->mapWithKeys(function ($day) use ($grouped) {
@@ -89,10 +89,10 @@ class RainDataController extends Controller
             $months = collect(range(1, 12))->map(fn($m) => Carbon::create()->month($m)->format('F'));
 
             // Fetch records within the year
-            $records = RainData::whereBetween('created_at', [$start, $end])->get();
+            $records = RainData::whereBetween('recorded_at', [$start, $end])->get();
 
             // Group records by month
-            $grouped = $records->groupBy(fn($r) => Carbon::parse($r->created_at)->format('F'));
+            $grouped = $records->groupBy(fn($r) => Carbon::parse($r->recorded_at)->format('F'));
 
             // Format the data for the chart
             $data = $months->mapWithKeys(fn($month) => [

@@ -29,39 +29,37 @@ class RainDataReader extends Component
         $query = RainData::query();
 
         if ($this->startDate) {
-            $query->where('created_at', '>=', Carbon::parse($this->startDate)->startOfDay());
+            $query->where('recorded_at', '>=', Carbon::parse($this->startDate)->startOfDay());
         }
 
         if ($this->endDate) {
-            $query->where('created_at', '<=', Carbon::parse($this->endDate)->endOfDay());
+            $query->where('recorded_at', '<=', Carbon::parse($this->endDate)->endOfDay());
         }
 
         // If no dates are set, default to latest 5
         if (!$this->startDate && !$this->endDate) {
-            $this->rainData = $query->latest('created_at')->take(5)->get();
+            $this->rainData = $query->latest('recorded_at')->take(5)->get();
         } else {
-            $this->rainData = $query->orderBy('created_at', 'desc')->get();
+            $this->rainData = $query->orderBy('recorded_at', 'desc')->get();
         }
     }
 
     public function applyFilter()
     {
         $this->validate();
-        $this->loadData(); // Re-load data based on new filter
+        $this->loadData(); 
     }
 
     public function resetFilter()
     {
         $this->startDate = null;
         $this->endDate = null;
-        $this->loadData(); // Re-load initial latest data
+        $this->loadData(); 
     }
 
     public function render()
     {
-        // When polling, we want it to reflect current filter state
-        // If no filters are active, it will show the latest 5 due to loadData logic
-        $this->loadData(); // Ensure data is always fresh on render
+        $this->loadData(); 
         return view('livewire.rain-data-reader');
     }
 }

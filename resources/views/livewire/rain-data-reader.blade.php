@@ -68,9 +68,9 @@
                                 @foreach ($rainData as $data)
                                     <tr>
                                         <td><span class="text-muted  small">{{ $data->device_id ?? 'N/A' }}</span></td>
-                                        <td class=" small">{{ \Carbon\Carbon::parse($data->created_at)->format('l') }}</td>
-                                        <td class=" small">{{ \Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
-                                        <td class=" small">{{ \Carbon\Carbon::parse($data->created_at)->format('h:i A') }}</td>
+                                        <td class=" small">{{ \Carbon\Carbon::parse($data->recorded_at)->format('l') }}</td>
+                                        <td class=" small">{{ \Carbon\Carbon::parse($data->recorded_at)->format('F j, Y') }}</td>
+                                        <td class=" small">{{ \Carbon\Carbon::parse($data->recorded_at)->format('h:i A') }}</td>
                                         <td class=" small"><span class="badge bg-primary-subtle text-primary fs-6">{{ $data->amount }}</span></td> 
                                     </tr>
                                 @endforeach

@@ -73,7 +73,7 @@
     </div>
 
     <footer>
-        &copy; {{ date('Y') }} Rain Monitoring System | Built with Laravel + Chart.js
+        &copy; {{ date('Y') }} Rain Monitoring System 
     </footer>
 
 </body>
