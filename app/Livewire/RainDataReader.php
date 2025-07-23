@@ -36,30 +36,35 @@ class RainDataReader extends Component
             $query->where('recorded_at', '<=', Carbon::parse($this->endDate)->endOfDay());
         }
 
-        // If no dates are set, default to latest 5
-        if (!$this->startDate && !$this->endDate) {
-            $this->rainData = $query->latest('recorded_at')->take(5)->get();
-        } else {
-            $this->rainData = $query->orderBy('recorded_at', 'desc')->get();
-        }
+        // Fetch data
+        $data = !$this->startDate && !$this->endDate
+            ? $query->latest('recorded_at')->take(5)->get()
+            : $query->orderBy('recorded_at', 'desc')->get();
+
+        // Add 3 hours to recorded_at
+        $this->rainData = $data->map(function ($item) {
+            $item->recorded_at = Carbon::parse($item->recorded_at)->addHours(3);
+            return $item;
+        });
     }
+
 
     public function applyFilter()
     {
         $this->validate();
-        $this->loadData(); 
+        $this->loadData();
     }
 
     public function resetFilter()
     {
         $this->startDate = null;
         $this->endDate = null;
-        $this->loadData(); 
+        $this->loadData();
     }
 
     public function render()
     {
-        $this->loadData(); 
+        $this->loadData();
         return view('livewire.rain-data-reader');
     }
 }
